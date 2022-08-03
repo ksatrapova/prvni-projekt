@@ -4,10 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>První projekt</title>
+    <title>MQTT-chat</title>
 </head>
 <body>
-    <h1>Můj první projekt na GitHub</h1>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.js" type="text/javascript"></script>
+
+    <script>
+        client = new Paho.MQTT.Client("d57a0d1c39d54550b147b58411d86743.s2.eu.hivemq.cloud", 8884, "93f4fc695608");
+        client.connect({
+            onSuccess: onConnect,
+            userName: "robot", 
+            password: "P@ssW0rd!",
+            useSSL: true
+        });
+
+        function onConnect() {
+            // Once a connection has been made, make a subscription and send a message.
+            console.log("onConnect"); 
+    
+    } 
+
+    function sendMessage(){
+            message = new Paho.MQTT.Message(document.getElementById("txtpole").value);
+            message.destinationName = "/row/16/message";
+            client.send(message);
+            document.getElementById("txtpole").value = ""
+        }
+
+
+    </script>
+<h1>TEXT</h1>
+   <input type="text" id="txtpole"> </input>
+   <button onclick="sendMessage()">Odeslat</button>
 
 </body>
+
 </html>
